@@ -49,10 +49,10 @@ type Layer = {
 // person > land > sky. A lagging layer's bared top edge rides off-screen with
 // the hero; the person's rising (cropped) bottom sits under the fade.
 const LAYERS: Layer[] = [
-  { src: "/sky.png", alt: "", z: "z-10", from: "0vh", to: "24vh" },
-  { src: "/land.png", alt: "", z: "z-20", from: "0vh", to: "11vh" },
+  { src: "/sky.webp", alt: "", z: "z-10", from: "0vh", to: "24vh" },
+  { src: "/land.webp", alt: "", z: "z-20", from: "0vh", to: "11vh" },
   {
-    src: "/person.png",
+    src: "/person.webp",
     alt: "Jovan Tan standing in an open landscape",
     z: "z-40",
     from: "0vh",
