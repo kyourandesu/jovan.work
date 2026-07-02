@@ -1,48 +1,336 @@
 @import "tailwindcss";
 
-:root {
-  --background: #000000;
-  --foreground: #ededed;
+/* ── Design tokens (Tailwind v4 theme) — exact "Artificial Societies" spec ── */
+@theme {
+  /* Color — backgrounds (warm paper light theme) */
+  --color-ink: #f4f2ec;
+  --color-ink-2: #eae7df;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3f0e9;
+
+  /* Color — hairlines (1px only) */
+  --color-line: rgba(20, 20, 24, 0.1);
+  --color-line-2: rgba(20, 20, 24, 0.14);
+  --color-line-hover: rgba(20, 20, 24, 0.24);
+
+  /* Color — text */
+  --color-fg: #1a1b1f;
+  --color-fg-muted: #55585f;
+  --color-fg-faint: #83868d;
+
+  /* Color — accent (warm coral, sparing only) */
+  --color-accent: #d5643f;
+  --color-accent-weak: rgba(213, 100, 63, 0.12);
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, "SF Mono", monospace;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+
+  /* Radius scale */
+  --radius-xs: 8px;
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-button: 8px; /* coral CTAs — rounded rect, not pill */
+  --radius-card: 16px; /* lg — cards & panels */
+  --radius-xl: 24px; /* large feature / CTA panels */
+  --radius-pill: 9999px;
+
+  /* Motion */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layout */
+  --spacing-section: clamp(80px, 12vw, 140px);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
-  --font-heading: var(--font-space-grotesk);
+/* ── Base ────────────────────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+}
+
+/* Native smooth-scroll only before/without Lenis (Lenis adds .lenis to html) */
+html:not(.lenis) {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  background-color: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv05", "cv11", "ss01";
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+::selection {
+  background: var(--color-accent-weak);
+  color: var(--color-fg);
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #333;
+/* Visible accent focus ring (outline keeps it clip-safe inside overflow-hidden) */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+/* ── Container ───────────────────────────────────────────────────── */
+.container-x {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+@media (min-width: 768px) {
+  .container-x {
+    padding-inline: 32px;
+  }
+}
+@media (min-width: 1280px) {
+  .container-x {
+    padding-inline: 40px;
+  }
 }
 
-.scrollbar-hide::-webkit-scrollbar {
+/* ── Skip-to-content link — hidden until focused ─────────────────── */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  border-radius: var(--radius-pill);
+  background: var(--color-fg);
+  color: var(--color-ink);
+  padding: 0.6rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: transform 0.2s var(--ease-premium);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-offset: 2px;
+}
+
+/* ── Typography helpers (exact scale) ────────────────────────────── */
+.text-display {
+  font-size: clamp(44px, 6vw, 88px);
+  font-weight: 560;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+.text-h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 540;
+  letter-spacing: -0.022em;
+  line-height: 1.08;
+}
+
+.text-stat {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 560;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.text-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+/* ── Dot-grid texture ────────────────────────────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(20, 20, 24, 0.06) 1px,
+    transparent 1.5px
+  );
+  background-size: 10px 10px;
+}
+/* Decorative dotted transition band */
+.dot-band {
+  height: 96px;
+  background-image: radial-gradient(
+    circle,
+    rgba(20, 20, 24, 0.05) 1px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 50%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 50%, transparent);
+}
+
+/* ── Spotlight border for cards ──────────────────────────────────── */
+.card-spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    180px circle at var(--cx, -200px) var(--cy, -200px),
+    var(--color-accent),
+    transparent 65%
+  );
+  /* Mask to show only the 1px border ring. */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-premium);
+}
+.group:hover .card-spotlight {
+  opacity: 0.7;
+}
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .card-spotlight {
     display: none;
+  }
 }
 
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+/* ── Film-grain overlay ──────────────────────────────────────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── Infinite marquee ────────────────────────────────────────────── */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Edge fade for marquee / overflow rows */
+.fade-x {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbc9c1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b4b2aa;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+}
+
+/* ── Karaoke transcript words ────────────────────────────────────── */
+.word {
+  border-radius: 4px;
+  padding: 0 0.5px;
+  transition:
+    color 0.15s var(--ease-premium),
+    background-color 0.15s var(--ease-premium),
+    box-shadow 0.15s var(--ease-premium);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+/* Words already spoken settle into full-strength text. */
+.word--spoken {
+  color: var(--color-fg);
+}
+/* The word being spoken: coral wash + underline. */
+.word--active {
+  color: var(--color-fg);
+  background: var(--color-accent-weak);
+  box-shadow: inset 0 -2px 0 var(--color-accent);
+}
+
+/* ── Player seek slider ──────────────────────────────────────────── */
+.tts-seek {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-line-2);
+  cursor: pointer;
+}
+.tts-seek::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid var(--color-surface);
+  box-shadow: 0 0 0 1px var(--color-line-2);
+  transition: transform 0.15s var(--ease-premium);
+}
+.tts-seek::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+.tts-seek::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 2px solid var(--color-surface);
+}
+.tts-seek:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
 }

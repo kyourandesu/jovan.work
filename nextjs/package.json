@@ -9,8 +9,15 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@breezystack/lamejs": "^1.2.7",
+    "@huggingface/transformers": "^4.2.0",
+    "@met4citizen/headtts": "^1.3.0",
+    "@mintplex-labs/piper-tts-web": "1.0.4",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
+    "kokoro-js": "^1.2.1",
     "lenis": "^1.3.17",
     "lucide-react": "^0.562.0",
     "next": "16.1.1",
