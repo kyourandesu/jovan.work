@@ -104,9 +104,9 @@ export const CASE_STUDY = {
 
 export const QUOTE = {
   text:
-    "I don't wait for permission to build. When I hit a problem worth solving, I ship the solution and learn whatever it takes to make it real.",
-  author: "Jovan Tan",
-  role: "Developer · Applied AI & Analytics",
+    "Living is an act of self-discovery. We enter an unknown world in search for our own reflection in what we create and in the people we meet. Sometimes, others reveal parts of us we couldn't see alone.\nYou can only meet someone as deeply as you've met yourself.",
+  author: "A thought I return to",
+  role: "On self-discovery and connection",
 };
 
 export const ABOUT = {

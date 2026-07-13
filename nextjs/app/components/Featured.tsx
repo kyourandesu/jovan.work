@@ -1,5 +1,6 @@
 import { Eyebrow, Reveal, ArrowLink } from "./primitives";
 import { CASE_STUDY, QUOTE } from "../lib/content";
+import QuoteReveal from "./QuoteReveal";
 
 export default function Featured() {
   return (
@@ -50,9 +51,7 @@ export default function Featured() {
               >
                 &ldquo;
               </span>
-              <blockquote className="mt-3 font-serif text-xl italic leading-relaxed text-fg md:text-2xl">
-                {QUOTE.text}
-              </blockquote>
+              <QuoteReveal>{QUOTE.text}</QuoteReveal>
               <footer className="mt-7">
                 <p className="font-medium text-fg">{QUOTE.author}</p>
                 <p className="font-mono text-xs uppercase tracking-[0.14em] text-fg-faint">
