@@ -22,9 +22,9 @@ function RevealCharacter({
   progress: MotionValue<number>;
   reducedMotion: boolean | null;
 }) {
-  const start = (index / total) * 0.8;
-  const end = Math.min(start + 0.2, 1);
-  const opacity = useTransform(progress, [start, end], [0.1, 1]);
+  const start = (index / total) * 0.5;
+  const end = Math.min(start + 0.1, 1);
+  const opacity = useTransform(progress, [start, end], [0.03, 1]);
 
   return (
     <motion.span aria-hidden="true" style={{ opacity: reducedMotion ? 1 : opacity }}>
