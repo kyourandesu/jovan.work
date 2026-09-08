@@ -3,6 +3,9 @@
 import { ReactLenis } from "lenis/react";
 import { MotionConfig } from "framer-motion";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import InteractiveBackground from "./InteractiveBackground";
+import PortfolioScroll from "./portfolio/PortfolioScroll";
 
 export default function SmoothScroll({
   children,
@@ -11,6 +14,7 @@ export default function SmoothScroll({
 }) {
   // Start false so SSR + first client render agree, then correct on mount.
   const [reduced, setReduced] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -20,11 +24,16 @@ export default function SmoothScroll({
     return () => mq.removeEventListener("change", update);
   }, []);
 
+  if (pathname === "/") {
+    return <MotionConfig reducedMotion="user"><PortfolioScroll />{children}</MotionConfig>;
+  }
+
   return (
     // reducedMotion="user" disables transform/layout animations (keeps opacity)
     // for users who prefer reduced motion — and lets us render motion elements
     // unconditionally, avoiding SSR/hydration branches.
     <MotionConfig reducedMotion="user">
+      <InteractiveBackground variant="grid" className="fixed inset-0 -z-10" />
       <ReactLenis
         root
         options={{
@@ -38,6 +47,7 @@ export default function SmoothScroll({
       >
         {children}
       </ReactLenis>
+      <div className="grain" aria-hidden="true" />
     </MotionConfig>
   );
 }

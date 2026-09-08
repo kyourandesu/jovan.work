@@ -99,7 +99,10 @@ export const CASE_STUDY = {
   body:
     "As CTO I owned the full stack Next.js, FastAPI and Supabase and led a team of eight developers shipping fast in a startup environment. It's challenging, high-velocity work, and watching the platform grow to 2,000+ users and get covered by The Straits Times has been the most rewarding thing I've built.",
   tags: ["Next.js", "FastAPI", "Supabase", "Team leadership"],
-  link: { label: "Visit supcareer.app", href: "https://www.supcareer.app" },
+  link: {
+    label: "Read the Straits Times feature",
+    href: "https://www.straitstimes.com/business/young-singaporeans-build-internship-entry-level-job-trackers-to-close-opportunity-gap",
+  },
 };
 
 export const QUOTE = {
@@ -115,12 +118,42 @@ export const ABOUT = {
   body:
     "I'm a 21-year-old developer who loves figuring out how things work. I'll be matriculating into NUS Business AI Systems, but my curiosity already takes me everywhere. From full-stack web development to the depths of reinforcement learning. I treat every project as a way to get sharper.",
   achievements: [
-    { title: "2nd Place — IMDA Solid Pods Hackathon", year: "2024", highlight: true },
-    { title: "1st Place — TRAE MiniMax Hackathon", year: "2026", highlight: true },
-    { title: "3rd Place — PyCon SG 2026", year: "2026", highlight: true },
-    { title: "5th Place (University) — GovTech AI CTF, out of 500+ teams", year: "2024", highlight: false },
-    { title: "Honorable Mention — HackOMania", year: "2025", highlight: false },
-    { title: "Finalist — Build for Impact", year: "2026", highlight: false },
+    {
+      title: "2nd Place — IMDA Solid Pods Hackathon",
+      year: "2024",
+      highlight: true,
+      href: "https://github.com/Solid-PODS",
+    },
+    {
+      title: "1st Place — TRAE MiniMax Hackathon",
+      year: "2026",
+      highlight: true,
+      href: "https://github.com/jovantan88/TRAE-Hackathon-2026-Winner",
+    },
+    {
+      title: "3rd Place — PyCon SG 2026",
+      year: "2026",
+      highlight: true,
+      href: "https://github.com/jovantan88/PyCon-2026-3rd",
+    },
+    {
+      title: "5th Place (University) — GovTech AI CTF, out of 500+ teams",
+      year: "2024",
+      highlight: false,
+      href: "https://www.tech.gov.sg/events/singapore-ai-ctf-2024/",
+    },
+    {
+      title: "Honorable Mention — HackOMania",
+      year: "2025",
+      highlight: false,
+      href: "https://hackomania2025.geekshacking.com/#challenges",
+    },
+    {
+      title: "Finalist — Build for Impact",
+      year: "2026",
+      highlight: false,
+      href: "https://github.com/jovantan88/Build-For-Impact-Hackathon-2026",
+    },
   ],
 };
 
@@ -179,7 +212,6 @@ export const EXPERIENCES: Experience[] = [
     desc:
       "Architected and maintained a high-performance Next.js and FastAPI platform, growing it to 2,000+ users and a feature on The Straits Times. Led a team of eight to build and maintain the product.",
     skills: ["Next.js", "FastAPI", "Supabase", "Team leadership", "Scrum"],
-    link: { label: "supcareer.app", href: "https://www.supcareer.app" },
   },
   {
     role: "Software Development Intern",
@@ -206,32 +238,51 @@ export type Project = {
   tags: string[];
   link?: string;
   code?: string;
+  submission?: string;
 };
 
 export const PROJECTS: Project[] = [
   {
-    title: "SG Career Snapshot",
+    title: "Seer — AI Image Detector",
+    category: "Submission · TikTok TechJam 2026",
+    desc:
+      "An AI-generated image detector that pairs confidence scores with heatmaps showing where generated content may be. Built for TikTok TechJam 2026, with an interactive dashboard for exploring predictions and model robustness.",
+    tags: ["Next.js", "PyTorch", "DINOv3", "Computer vision"],
+    link: "https://techjam2026.glennwu.com/",
+    code: "https://github.com/wuglenn/tiktok-techjam-2026",
+    submission: "https://devpost.com/software/seer-ai-image-detector",
+  },
+  {
+    title: "Showrunner",
+    category: "Hackathon · Daytona 2026",
+    desc:
+      "Turn a product URL into a demo video. An AI crew plans the scenes, records the product in a Daytona sandbox, and edits the footage into an MP4 with voiceover, captions, and camera zooms.",
+    tags: ["Next.js", "Daytona", "Playwright", "HyperFrames"],
+    code: "https://github.com/jovantan88/daytona-hackathon-2026",
+  },
+  {
+    title: "SIMS — Society Simulator",
+    category: "Hackathon · OpenAI Codex 2026",
+    desc:
+      "A virtual focus group for exploring how different audiences might react to a public statement or idea. Research, persona, and simulation agents work together to model responses, with an interactive society graph and comparisons between runs.",
+    tags: ["Next.js", "FastAPI", "AI agents", "Simulation"],
+    code: "https://github.com/jovantan88/codex-hackathon-2026",
+  },
+  {
+    title: "Career Snapshot SG",
     category: "Hackathon · PyCon SG 2026",
     desc:
-      "Pick a job and get one dashboard showing the roles you can reach, the skills slipping under you, and the single government-funded move worth making — built on Singapore's SkillsFuture Skills Framework dataset with a Next.js, FastAPI and Supabase stack.",
-    tags: ["Next.js", "FastAPI", "Supabase", "ML"],
-    code: "https://github.com/jovantan88/pycon-2026",
+      "Find your next career move, starting with the skills you already have. Explore related roles, spot the gaps to work on, and identify opportunities for government-funded upskilling — all in a personal career snapshot and interactive map of Singapore's SkillsFuture data.",
+    tags: ["Career exploration", "SkillsFuture"],
+    code: "https://github.com/jovantan88/PyCon-2026-3rd",
   },
   {
-    title: "Digital Wardrobe App",
+    title: "COCO — Your AI Wardrobe",
     category: "Hackathon · TRAE 2026",
     desc:
-      "A digital wardrobe app for cataloging clothes and planning outfits, built at the 2026 TRAE hackathon.",
-    tags: ["Web app", "Hackathon"],
-    code: "https://github.com/jovantan88/TRAE-Hackathon-2026",
-  },
-  {
-    title: "Personal Book Reader",
-    category: "Full-stack web app",
-    desc:
-      "A clean, ad-free reading platform that extracts text from PDFs, Word docs and EPUBs, with natural-sounding AI text-to-speech via Kokoro and Piper.",
-    tags: ["Next.js", "Firebase", "AI TTS"],
-    link: "https://book-app--pbook-c9fc1.asia-southeast1.hosted.app/",
+      "A little less 'nothing to wear.' Turn the clothes you own into a digital closet, mix pieces, and preview outfits on a virtual version of yourself. Save your favourite looks, share them with friends, or get outfit ideas for your next trip based on the weather and local style.",
+    tags: ["Virtual try-on", "Personal styling"],
+    code: "https://github.com/jovantan88/TRAE-Hackathon-2026-Winner",
   },
   {
     title: "HackOMania",
@@ -243,21 +294,12 @@ export const PROJECTS: Project[] = [
     code: "https://github.com/jovantan88/HackOMania-Ongod",
   },
   {
-    title: "Kaggle Competitions",
-    category: "Machine learning",
-    desc:
-      "Multiple competition finishes — three 3rd places and two 4th places — applying advanced ML to complex, real-world data challenges.",
-    tags: ["Machine learning", "Data science"],
-    link: "https://www.kaggle.com/",
-    code: "https://github.com/jovantan88",
-  },
-  {
     title: "Solid Pods Hackathon",
     category: "Hackathon · 2nd Place",
     desc:
       "Explored decentralized data solutions built on Solid Pods, taking 2nd place in a fast, competitive build environment.",
     tags: ["Decentralized web", "Solid Pods"],
-    code: "https://github.com/jovantan88",
+    code: "https://github.com/Solid-PODS",
   },
   {
     title: "AI CTF",
@@ -276,42 +318,11 @@ export const PROJECTS: Project[] = [
     code: "https://gitlab.com/kyourandesu1/vegetable-prediction",
   },
   {
-    title: "Car Price Prediction",
-    category: "Machine learning",
-    desc: "A web app that predicts a car's price from its features, deployed end-to-end.",
-    tags: ["Machine learning", "Full stack"],
-    link: "https://devops-ca1-jovan-tan.onrender.com/",
-    code: "https://gitlab.com/devops-ml-jovan/car-price-prediction",
-  },
-  {
-    title: "Disability Awareness",
-    category: "Web development",
-    desc:
-      "An in-depth site raising awareness of learning disabilities and how to support those who have them.",
-    tags: ["Web development", "Accessibility"],
-    link: "https://jovantan88.github.io/learning-disability-website/",
-    code: "https://github.com/jovantan88/learning-disability-website",
-  },
-  {
     title: "GAN Project",
     category: "Deep learning",
     desc: "Generating images with several GAN architectures trained on the CIFAR-10 dataset.",
     tags: ["Deep learning", "GAN"],
     code: "https://github.com/jovantan88/Deep-Learning-School",
-  },
-  {
-    title: "Gymnasium RL",
-    category: "Reinforcement learning",
-    desc: "Working through as many Gymnasium environments as possible to learn RL hands-on.",
-    tags: ["Reinforcement learning"],
-    code: "https://github.com/jovantan88",
-  },
-  {
-    title: "RL Networks",
-    category: "Reinforcement learning",
-    desc: "Comparing many network architectures to solve the Pendulum control environment.",
-    tags: ["Reinforcement learning"],
-    code: "https://github.com/jovantan88",
   },
 ];
 
