@@ -25,7 +25,7 @@ export const HERO = {
   lastLinePre: "Made ",
   lastLineAccent: "tangible.",
   subhead:
-    "I'm Jovan — a developer turning complex AI and data into products people actually use. From reinforcement-learning agents to an EdTech platform serving 1,000+ users.",
+    "i'm Jovan — a developer turning complex AI and data into products people actually use. From reinforcement-learning agents to an EdTech platform serving 1,000+ users.",
   primaryCta: { label: "Get in touch", href: "#contact" },
   secondaryCta: { label: "View work", href: "#work" },
 };
@@ -66,17 +66,6 @@ export type Stat = {
 
 export const STATS: Stat[] = [
   {
-    value: 2000,
-    suffix: "+",
-    label: "Active users",
-    desc: "On the EdTech platform I architected and now lead.",
-  },
-  {
-    value: 8,
-    label: "Engineers led",
-    desc: "Coordinating the team building 'Sup's product stack.",
-  },
-  {
     value: 6,
     decimals: 0,
     suffix: "x",
@@ -89,6 +78,16 @@ export const STATS: Stat[] = [
     label: "Years building",
     desc: "From freelance sites to production AI systems.",
   },
+    {
+    value: 2,
+    label: "internships",
+    desc: "Learning from the best and building real-world systems.",
+  },
+  {
+    value: 1,
+    label: "braincell left",
+    desc: "After all those long nights of coding and debugging.",
+  }
 ];
 
 export const CASE_STUDY = {
@@ -165,13 +164,13 @@ export const CAPABILITIES: SkillGroup[] = [
     items: [
       "React",
       "Next.js",
-      "Flask",
       "FastAPI",
-      "Tailwind CSS",
+      "React Native",
       "Firebase",
       "Supabase",
-      "PostgreSQL",
-      "MySQL",
+      "Google Cloud Platform",
+      "UIUX",
+      "Tailwind CSS",
     ],
   },
   {
@@ -182,11 +181,9 @@ export const CAPABILITIES: SkillGroup[] = [
       "Keras",
       "Scikit-learn",
       "CNN",
-      "RNN",
-      "GAN",
-      "DQN",
-      "RAG",
-      "AutoML",
+      "Reinforcement learning",
+      "Runpod",
+      "Hugging Face",
     ],
   },
   {
@@ -226,7 +223,7 @@ export const EXPERIENCES: Experience[] = [
     company: "Self-employed",
     period: "May 2022 — Present",
     desc:
-      "Where it all started. I help clients bring ideas to the web — from initial design through to 24/7 hosting — learning to manage projects and deliver on time.",
+      "Where it all started. I help clients bring ideas to the web from initial design through to 24/7 hosting, learning to manage projects and deliver on time.",
     skills: ["Web development", "Hosting", "Client management"],
   },
 ];
@@ -235,6 +232,7 @@ export type Project = {
   title: string;
   category: string;
   desc: string;
+  summary?: string;
   tags: string[];
   link?: string;
   code?: string;
@@ -244,6 +242,7 @@ export type Project = {
 export const PROJECTS: Project[] = [
   {
     title: "Seer — AI Image Detector",
+    summary: "Spot AI-generated images with confidence scores and heatmaps that show where to look.",
     category: "Submission · TikTok TechJam 2026",
     desc:
       "An AI-generated image detector that pairs confidence scores with heatmaps showing where generated content may be. Built for TikTok TechJam 2026, with an interactive dashboard for exploring predictions and model robustness.",
@@ -254,6 +253,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Showrunner",
+    summary: "Turn a product URL into a narrated demo video, with AI planning, recording, and editing.",
     category: "Hackathon · Daytona 2026",
     desc:
       "Turn a product URL into a demo video. An AI crew plans the scenes, records the product in a Daytona sandbox, and edits the footage into an MP4 with voiceover, captions, and camera zooms.",
@@ -262,6 +262,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "SIMS — Society Simulator",
+    summary: "Explore how different audiences might react to an idea with AI personas and a virtual society.",
     category: "Hackathon · OpenAI Codex 2026",
     desc:
       "A virtual focus group for exploring how different audiences might react to a public statement or idea. Research, persona, and simulation agents work together to model responses, with an interactive society graph and comparisons between runs.",
@@ -270,6 +271,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Career Snapshot SG",
+    summary: "Explore career paths, discover skill gaps, and find SkillsFuture upskilling opportunities.",
     category: "Hackathon · PyCon SG 2026",
     desc:
       "Find your next career move, starting with the skills you already have. Explore related roles, spot the gaps to work on, and identify opportunities for government-funded upskilling — all in a personal career snapshot and interactive map of Singapore's SkillsFuture data.",
@@ -278,6 +280,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "COCO — Your AI Wardrobe",
+    summary: "Digitise your wardrobe, try outfits on a virtual you, and get styling ideas for your next trip.",
     category: "Hackathon · TRAE 2026",
     desc:
       "A little less 'nothing to wear.' Turn the clothes you own into a digital closet, mix pieces, and preview outfits on a virtual version of yourself. Save your favourite looks, share them with friends, or get outfit ideas for your next trip based on the weather and local style.",
@@ -286,6 +289,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "HackOMania",
+    summary: "An extension and app that bring event maps and collaborative chats into Reddit communities.",
     category: "Hackathon · Honorable Mention",
     desc:
       "A web extension and app that dynamically injects event maps into subreddits, with GitHub auth and collaborative chat.",
