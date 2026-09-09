@@ -27,7 +27,7 @@ function easeToCruise(t: number) {
 export default function PortfolioScroll() {
   useEffect(() => {
     const media = window.matchMedia(
-      "(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
+      "(min-width: 1000px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)",
     );
     let dispose: (() => void) | undefined;
 
@@ -55,14 +55,20 @@ export default function PortfolioScroll() {
       };
 
       function getTarget(deltaY: number) {
+        const sections = Array.from(document.querySelectorAll<HTMLElement>("#main-content > section"));
+        const rects = sections.map(section => section.getBoundingClientRect());
         return getSectionSnapTarget({
           position: lenis.targetScroll,
           delta: deltaY,
           direction: Math.sign(deltaY),
-          sectionStarts: Array.from(
-            document.querySelectorAll<HTMLElement>("#main-content > section"),
-            section => section.getBoundingClientRect().top + window.scrollY,
-          ),
+          sectionStarts: rects.map(rect => rect.top + window.scrollY),
+          sectionHeights: sections.map((section, index) => {
+            const overflowingCard = Array.from(section.querySelectorAll("article")).some(
+              card => card.scrollHeight > card.clientHeight + 2,
+            );
+            if (overflowingCard || section.scrollWidth > section.clientWidth + 2) return Infinity;
+            return Math.max(rects[index].height, section.scrollHeight);
+          }),
           viewportHeight: window.innerHeight,
           scrollLimit: lenis.limit,
         });
@@ -103,6 +109,11 @@ export default function PortfolioScroll() {
         transition = currentTransition;
         snapTimer = setTimeout(() => {
           snapTimer = undefined;
+          // Content may have reflowed during the pause (fonts, tabs, or zoom).
+          if (getTarget(deltaY) !== target) {
+            cancelSnap();
+            return;
+          }
           currentTransition.phase = "moving";
           lenis.scrollTo(target, {
             duration: SNAP_DURATION_SECONDS,
@@ -136,11 +147,14 @@ export default function PortfolioScroll() {
       }
 
       // Mouse, keyboard, links, and touch must cancel a queued wheel snap.
+      const resizeObserver = new ResizeObserver(cancelSnap);
+      document.querySelectorAll("#main-content > section").forEach(section => resizeObserver.observe(section));
       document.addEventListener("click", onAnchorClick);
       window.addEventListener("keydown", cancelSnap);
       window.addEventListener("pointerdown", cancelSnap);
       window.addEventListener("resize", cancelSnap);
       dispose = () => {
+        resizeObserver.disconnect();
         document.removeEventListener("click", onAnchorClick);
         window.removeEventListener("keydown", cancelSnap);
         window.removeEventListener("pointerdown", cancelSnap);

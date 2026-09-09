@@ -3,17 +3,19 @@ type SectionSnapOptions = {
   direction: number;
   delta?: number;
   sectionStarts: number[];
+  sectionHeights: number[];
   viewportHeight: number;
   scrollLimit: number;
 };
 
-// A tall section has a free-scrolling range. Only the space between those
-// ranges snaps, always toward the section the reader is moving into.
+// Only adjacent sections that both fit on screen can snap. Boundaries touching
+// taller content stay freely scrollable, including the entry and exit.
 export function getSectionSnapTarget({
   position,
   direction,
   delta,
   sectionStarts,
+  sectionHeights,
   viewportHeight,
   scrollLimit,
 }: SectionSnapOptions): number | null {
@@ -23,6 +25,8 @@ export function getSectionSnapTarget({
   if (direction < 0) indices.reverse();
 
   for (const index of indices) {
+    const bothFit = sectionHeights[index] <= viewportHeight + 2 &&
+      sectionHeights[index + 1] <= viewportHeight + 2;
     const nextStart = Math.min(sectionStarts[index + 1], scrollLimit);
     const previousEnd = Math.min(
       Math.max(sectionStarts[index], sectionStarts[index + 1] - viewportHeight),
@@ -32,14 +36,14 @@ export function getSectionSnapTarget({
     // Before consuming wheel input, detect the first boundary it would cross.
     // This lets the view hold still before moving, even for a large wheel delta.
     if (delta !== undefined) {
-      if (direction > 0 && position < nextStart - 1 && position + delta > previousEnd + 1) return nextStart;
-      if (direction < 0 && position > previousEnd + 1 && position + delta < nextStart - 1) return previousEnd;
+      if (direction > 0 && position < nextStart - 1 && position + delta > previousEnd + 1) return bothFit ? nextStart : null;
+      if (direction < 0 && position > previousEnd + 1 && position + delta < nextStart - 1) return bothFit ? previousEnd : null;
       continue;
     }
 
     // Leave exact boundaries alone, including rounding to physical pixels.
     if (position > previousEnd + 1 && position < nextStart - 1) {
-      return direction > 0 ? nextStart : previousEnd;
+      return bothFit ? (direction > 0 ? nextStart : previousEnd) : null;
     }
   }
 

@@ -15,7 +15,8 @@
 }
 
 :global(html):has(.portfolio) {
-  scroll-snap-type: y proximity;
+  /* Snapping is enabled by the desktop controller only when sections fit. */
+  scroll-snap-type: none;
   scroll-behavior: smooth;
 }
 
@@ -45,7 +46,7 @@
 .navLinks a:last-child { color: var(--rust); }
 .menuButton { display: none; }
 
-.section { position: relative; min-height: 100svh; scroll-snap-align: start; padding: 122px max(7%, calc((100% - 1280px) / 2)) 38px; display: flex; flex-direction: column; justify-content: center; }
+.section { position: relative; min-height: 100svh; padding: 122px max(7%, calc((100% - 1280px) / 2)) 38px; display: flex; flex-direction: column; justify-content: center; }
 .section + .section { border-top: 1px solid var(--rule); }
 .sectionInner { width: 100%; margin: auto 0; }
 .eyebrow { display: flex; align-items: center; gap: 9px; font: 11px/1.8 var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--rust); }
